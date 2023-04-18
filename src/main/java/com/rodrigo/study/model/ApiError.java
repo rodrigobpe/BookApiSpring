@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Error {
+public class ApiError {
     private LocalDateTime timestamp;
     private HttpStatus status;
     private Object errorMessage;
