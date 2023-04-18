@@ -9,4 +9,5 @@ public interface BookService {
     Book getById(UUID id);
     List<Book> getAll();
     Book create(Book book);
+    void delete(UUID id);
 }

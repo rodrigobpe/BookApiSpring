@@ -12,7 +12,7 @@ import com.rodrigo.study.repository.BookRepository;
 import com.rodrigo.study.service.BookService;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -20,7 +20,7 @@ public class BookServiceImpl implements BookService {
     private BookRepository bookRepository;
 
     @Override
-    public Book getById(@PathVariable @NotNull UUID id) {
+    public Book getById(@PathVariable @NotEmpty UUID id) {
         return this.bookRepository.findById(id).orElseThrow(()-> new RecordNotFoundException("Book not found with id "+id));
     }
 
@@ -32,6 +32,12 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book create(@Valid Book book) {
         return this.bookRepository.save(book);
+    }
+
+    @Override
+    public void delete(@PathVariable @NotEmpty UUID id) {
+        Book bookAlreadyExist = getById(id);
+        this.bookRepository.delete(bookAlreadyExist); 
     }
     
 }
